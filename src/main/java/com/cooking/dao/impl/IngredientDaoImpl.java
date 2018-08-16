@@ -1,7 +1,9 @@
 package com.cooking.dao.impl;
 
 import com.cooking.dao.IngredientDao;
+import com.cooking.model.Dish;
 import com.cooking.model.Ingredient;
+import com.cooking.model.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +37,16 @@ public class IngredientDaoImpl implements IngredientDao {
                 .list();
     }
 
-    public Ingredient getIngredientById(int id) {
-        return session().get(Ingredient.class,id);
+//    public Ingredient getIngredientById(int id) {
+//        return session().get(Ingredient.class,id);
+//    }
+
+
+    public Ingredient getIngredientByDishAndProduct(Dish dish, Product product) {
+       Ingredient ingredient = (Ingredient)session()
+               .createQuery("select i from Ingredient i where i.ingredientDish = ?1 and i.ingredientProduct = ?2",Ingredient.class)
+               .setParameter(1,dish).setParameter(2,product).getSingleResult();
+        return ingredient;
     }
 
     public void addIngredient(Ingredient ingredientAdd) {
@@ -48,6 +58,6 @@ public class IngredientDaoImpl implements IngredientDao {
     }
 
     public void deleteIngredient(Ingredient ingredientDelete) {
-        session().merge(ingredientDelete);
+        session().delete(ingredientDelete);
     }
 }

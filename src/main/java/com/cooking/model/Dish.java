@@ -27,10 +27,10 @@ public class Dish implements Serializable {
     @Column(name = "dish_recepie",columnDefinition = "text")
     private String recepie;
 
-    @OneToMany(mappedBy = "ingredientDish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ingredientDish",cascade = CascadeType.ALL)
     private Set<Ingredient> ingredients;
 
-    @OneToMany(mappedBy = "favouriteDish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "favouriteDish",cascade = CascadeType.ALL)
     private Set<Favourite>favourites;
 
     public Dish() {

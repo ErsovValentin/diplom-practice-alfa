@@ -39,10 +39,10 @@ public class Client {
     @Column(name = "client_role")
     private UserRole role;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "storageUser")
+    @OneToOne(mappedBy = "storageUser",cascade = CascadeType.ALL)
     private Storage storage;
 
-    @OneToMany(mappedBy = "favouriteUser",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "favouriteUser",cascade = CascadeType.ALL)
     private Set<Favourite> favourites;
 
     public int getId() {
@@ -135,6 +135,7 @@ public class Client {
                 ", sex=" + sex +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

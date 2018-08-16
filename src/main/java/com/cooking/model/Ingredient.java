@@ -7,12 +7,12 @@ import java.io.Serializable;
 @Table(name = "ingredient")
 public class Ingredient implements Serializable {
     @Id
-    @ManyToOne
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "dish_id")
     private Dish ingredientDish;
 
     @Id
-    @ManyToOne
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product ingredientProduct;
 

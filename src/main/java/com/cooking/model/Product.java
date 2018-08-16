@@ -23,17 +23,17 @@ public class Product implements Serializable {
     @Column(name = "product_type")
     private ProductType type;
 
-    @Column(name = "product_description")
+    @Column(name = "product_description",columnDefinition = "text")
     private String description;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "product_measure")
     private ProductMeasure measure;
 
-    @OneToMany(mappedBy = "ingredientProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ingredientProduct",cascade = CascadeType.ALL)
     private Set<Ingredient> ingredients;
 
-    @OneToMany(mappedBy = "storageProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "storageProduct",cascade = CascadeType.ALL)
     private Set<Storage> storages;
 
     public Product() {

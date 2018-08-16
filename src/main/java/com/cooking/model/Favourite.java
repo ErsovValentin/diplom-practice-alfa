@@ -10,11 +10,11 @@ public class Favourite {
     @Column(name = "favourite_id")
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Client favouriteUser;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "dish_id")
     private Dish favouriteDish;
 

@@ -20,11 +20,11 @@ public class Storage {
     @Column(name = "product_activity")
     private StorageActivity activityOfProduct;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product storageProduct;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Client storageUser;
 
