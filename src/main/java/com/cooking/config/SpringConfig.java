@@ -19,7 +19,7 @@ public class SpringConfig {
     ViewResolver viewResolver()
     {
         InternalResourceViewResolver resolver  = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/");
+        resolver.setPrefix("/WEB-INF/pages/");
         resolver.setSuffix(".jsp");
         return resolver;
     }

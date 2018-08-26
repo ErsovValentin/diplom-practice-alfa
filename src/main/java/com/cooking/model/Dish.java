@@ -1,13 +1,17 @@
 package com.cooking.model;
 
 import com.cooking.model.addition.DishType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
 @Table(name = "dish")
+@JsonIgnoreProperties(value = {"ingredients" , "favourites"})
 public class Dish implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,6 +36,8 @@ public class Dish implements Serializable {
 
     @OneToMany(mappedBy = "favouriteDish",cascade = CascadeType.ALL)
     private Set<Favourite>favourites;
+
+
 
     public Dish() {
     }

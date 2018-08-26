@@ -18,4 +18,9 @@ public class AdminService {
     {
         return dishDao.getAllDishes();
     }
+    public Dish getDishById(int dishId){return dishDao.getDishById(dishId);}
+    public void addDish(Dish dishAdd){dishDao.addDish(dishAdd);}
+    public void updateDish (Dish dishUpdate) { dishDao.updateDish(dishUpdate);}
+    public void deleteDish (Dish dishDelete) {dishDao.deleteDish(dishDelete);}
+
 }
