@@ -15,7 +15,7 @@
     <title>Dishes</title>
 </head>
 <body>
-<a href="index.jsp">back to main menu</a>
+<a href="<c:url value="/"/> ">back to main menu</a>
 <br/>
 <br/>
 
@@ -37,7 +37,7 @@
             <tr>
                 <td>${dish.id}</td>
                 <td>${dish.name}</td>
-                <td>${dish.type}</td>
+                <td>${dish.type.name}</td>
                 <td>${dish.description}</td>
                 <td>${dish.recepie}</td>
                 <td><a href="<c:url value='/update/${dish.id}'/>">Update </a></td>
@@ -88,7 +88,9 @@
                 </form:label>
             </td>
             <td>
-                <form:select path="type" items="${dishTypes}"/>
+                <form:select path="type" >
+                    <form:options items="${dishTypes}"  itemLabel="name"/>
+                </form:select>
             </td>
         </tr>
 

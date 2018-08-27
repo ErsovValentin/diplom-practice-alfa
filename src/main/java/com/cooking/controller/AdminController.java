@@ -22,22 +22,22 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    private final Map<String,DishType> dishTypeMap = new LinkedHashMap<String, DishType>(){
+    /*private final Map<DishType,String> dishTypeMap = new LinkedHashMap<DishType,String>(){
         {
-          put("Salad",DishType.SALAD);
-          put("Snack",DishType.SNACK);
-          put("First course",DishType.FIRST_COURSE);
-          put("Second course", DishType.SECOND_COURSE);
-          put("Dough",DishType.DOUGH);
-          put("Side dish", DishType.SIDE_DISH);
-          put("Sauce",DishType.SAUCE);
-          put("Desert",DishType.DESERT);
-          put("Bake",DishType.BAKE);
-          put("Meat",DishType.MEAT);
-          put("Strong drinks", DishType.STRONG_DRINKS);
-          put("Soft drinks", DishType.SOFT_DRINKS);
+          put(DishType.SALAD,"Salad");
+          put(DishType.SNACK,"Snack");
+          put(DishType.FIRST_COURSE,"First course");
+          put(DishType.SECOND_COURSE,"Second course");
+          put(DishType.DOUGH,"Dough");
+          put(DishType.SIDE_DISH,"Side dish");
+          put(DishType.SAUCE,"Sauce");
+          put(DishType.DESERT,"Desert");
+          put(DishType.BAKE,"Bake");
+          put(DishType.MEAT,"Meat");
+          put(DishType.STRONG_DRINKS,"Strong drinks");
+          put(DishType.SOFT_DRINKS,"Soft drinks");
         }
-    };
+    };*/
 
     @RequestMapping("/")
     public String getIndex()
@@ -72,12 +72,13 @@ public class AdminController {
     {
         model.addAttribute("dish", new Dish());
         model.addAttribute("listOfDishes", adminService.getAllDishes());
-        modelAndView.addObject("dishTypes",dishTypeMap);
+//        modelAndView.addObject("dishTypes",dishTypeMap);
+        modelAndView.addObject("dishTypes", DishType.values());
         return "dishes";
     }
 
     @RequestMapping(value = "dishes/add", method = RequestMethod.POST)
-    public String addDish(@ModelAttribute("dish") Dish dish, Model model)
+    public String addDish(@ModelAttribute("dish") Dish dish)
     {
         if (dish.getId() == 0)
         {
