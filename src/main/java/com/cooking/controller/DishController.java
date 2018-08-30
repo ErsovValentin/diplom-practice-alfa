@@ -3,24 +3,19 @@ package com.cooking.controller;
 
 import com.cooking.model.Dish;
 import com.cooking.model.addition.DishType;
-import com.cooking.service.AdminService;
+import com.cooking.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 @Controller
-public class AdminController {
+public class DishController {
 
 
     @Autowired
-    private AdminService adminService;
+    private DishService dishService;
 
     /*private final Map<DishType,String> dishTypeMap = new LinkedHashMap<DishType,String>(){
         {
@@ -54,7 +49,7 @@ public class AdminController {
     @RequestMapping("/dish")
     public @ResponseBody String getOneDish()
     {
-        return adminService.getAllDishes().get(0).getName();
+        return dishService.getAllDishes().get(0).getName();
     }
 
 
@@ -71,7 +66,7 @@ public class AdminController {
     public String listOfDishes(Model model, ModelAndView modelAndView)
     {
         model.addAttribute("dish", new Dish());
-        model.addAttribute("listOfDishes", adminService.getAllDishes());
+        model.addAttribute("listOfDishes", dishService.getAllDishes());
 //        modelAndView.addObject("dishTypes",dishTypeMap);
         modelAndView.addObject("dishTypes", DishType.values());
         return "dishes";
@@ -82,11 +77,11 @@ public class AdminController {
     {
         if (dish.getId() == 0)
         {
-            adminService.addDish(dish);
+            dishService.addDish(dish);
         }
         else
         {
-            adminService.updateDish(dish);
+            dishService.updateDish(dish);
         }
 
         return "redirect:/dishes";
@@ -95,7 +90,7 @@ public class AdminController {
     @RequestMapping(value = "/delete/{id}")
     public String deleteDish(@PathVariable("id") int dishId)
     {
-        adminService.deleteDish(adminService.getDishById(dishId));
+        dishService.deleteDish(dishService.getDishById(dishId));
 
         return "redirect:/dishes";
     }
@@ -103,8 +98,8 @@ public class AdminController {
     @RequestMapping(value = "/update/{id}")
     public String updateDish(@PathVariable("id") int dishId , Model model)
     {
-        model.addAttribute("dish",adminService.getDishById(dishId));
-        model.addAttribute("listOfDishes" , adminService.getAllDishes());
+        model.addAttribute("dish", dishService.getDishById(dishId));
+        model.addAttribute("listOfDishes" , dishService.getAllDishes());
 
         return "dishes";
     }

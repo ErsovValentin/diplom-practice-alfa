@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AdminService {
+public class DishService {
 
     @Autowired
     DishDao dishDao;
