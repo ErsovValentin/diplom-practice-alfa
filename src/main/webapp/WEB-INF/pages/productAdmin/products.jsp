@@ -5,58 +5,61 @@
 <%--
   Created by IntelliJ IDEA.
   User: Dell
-  Date: 26.08.2018
-  Time: 16:53
+  Date: 30.08.2018
+  Time: 19:03
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Dishes</title>
+    <title>Product</title>
 </head>
 <body>
-<a href="<c:url value="/"/> ">back to main menu</a>
+
+<a href="<c:url value="/"/> ">Back to main menu</a>
 <br/>
 <br/>
 
-<h1>Book list</h1>
 
-<c:if test="${!empty listOfDishes}">
+<h1>Products</h1>
+<c:if test="${!empty listOfProducts}">
+<table border="1">
+    <tr>
+    <td>ID</td>
+    <td>Name</td>
+    <td>Type</td>
+    <td>Description</td>
+    <td>Measure Unit</td>
+    <td>Update</td>
+    <td>Delete</td>
+    </tr>
 
-    <table>
-        <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Type</td>
-            <td>Description</td>
-            <td>Recepie</td>
-            <td>Update</td>
-            <td>Delete</td>
-        </tr>
-        <c:forEach items="${listOfDishes}" var="dish">
-            <tr>
-                <td>${dish.id}</td>
-                <td>${dish.name}</td>
-                <td>${dish.type.name}</td>
-                <td>${dish.description}</td>
-                <td>${dish.recepie}</td>
-                <td><a href="<c:url value='/update/${dish.id}'/>">Update </a></td>
-                <td><a href="<c:url value='/delete/${dish.id}'/>">Delete </a></td>
-            </tr>
+        <c:forEach items="${listOfProducts}" var="product">
+    <tr>
+            <td>${product.id}</td>
+            <td>${product.name}</td>
+            <td>${product.type.name}</td>
+            <td>${product.description}</td>
+            <td>${product.measure.name}</td>
+            <td><a href="<c:url value='/updateProduct/${product.id}'/>">Update </a></td>
+            <td><a href="<c:url value='/deleteProduct/${product.id}'/>">Delete </a></td>
+    </tr>
         </c:forEach>
-    </table>
+
+
+</table>
 </c:if>
 
-<h1>Add a dish</h1>
-<c:url var ="addAction" value="/dishes/add"/>
+<h1>Add a product</h1>
+<c:url var="addAction" value="/product/addProduct"/>
 
-<form:form action="${addAction}" modelAttribute="dish">
+<form:form action="${addAction}" modelAttribute="product">
     <table>
-        <c:if test="${!empty dish.name}">
+        <c:if test="${!empty product.name}">
             <tr>
                 <td>
                     <form:label path="id">
-                        <spring:message text="ID"/>
+                        <spring:message text = "ID"/>
                     </form:label>
                 </td>
                 <td>
@@ -75,12 +78,8 @@
             <td>
                 <form:input path="name"/>
             </td>
-
         </tr>
 
-
-
-        <%--HEre is a problem--%>
         <tr>
             <td>
                 <form:label path="type">
@@ -88,14 +87,11 @@
                 </form:label>
             </td>
             <td>
-                <form:select path="type" >
-                    <form:options items="${dishTypes}"  itemLabel="name"/>
+                <form:select path="type">
+                    <form:options items="${productType}" itemLabel="name"/>
                 </form:select>
             </td>
         </tr>
-
-
-
 
         <tr>
             <td>
@@ -106,34 +102,36 @@
             <td>
                 <form:input path="description"/>
             </td>
-
         </tr>
 
         <tr>
             <td>
-                <form:label path="recepie">
-                    <spring:message text="Recepie"/>
+                <form:label path="measure">
+                    <spring:message text="Measure unit"/>
                 </form:label>
             </td>
             <td>
-                <form:input path="recepie"/>
+                <form:select path="measure">
+                    <form:options items="${productMeasure}" itemLabel="name"/>
+                </form:select>
             </td>
-
         </tr>
 
         <tr>
             <td>
-                <c:if test="${!empty dish.name}">
-                    <input type="submit"
-                           value="<spring:message text="Update Dish"/> "/>
+                <c:if test="${empty product.name}">
+                    <input type="submit" value="<spring:message text="Add product"/> "/>
                 </c:if>
-                <c:if test="${empty dish.name}">
-                    <input type="submit"
-                           value="<spring:message text="Add Dish"/> "/>
+                <c:if test="${!empty product.name}">
+                    <input type="submit" value="<spring:message text="Update product"/> "/>
                 </c:if>
             </td>
         </tr>
+
     </table>
 </form:form>
+
+
+
 </body>
 </html>

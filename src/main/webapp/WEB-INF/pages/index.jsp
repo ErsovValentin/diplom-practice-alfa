@@ -16,5 +16,6 @@
     Welcome
 </h3>
 <a href="<c:url value="/dishes"/> ">Dishes list</a>
+<a href="<c:url value="/products"/> ">Products list</a>
 </body>
 </html>
