@@ -32,7 +32,7 @@ public class ProductController {
         return "/productAdmin/products";
     }
 
-    @RequestMapping(value = "product/addProduct" , method = RequestMethod.POST)
+    @RequestMapping(value = "products/addProduct" , method = RequestMethod.POST)
     public String productAdd(@ModelAttribute("product") Product product)
     {
         if (product.getId() == 0)
