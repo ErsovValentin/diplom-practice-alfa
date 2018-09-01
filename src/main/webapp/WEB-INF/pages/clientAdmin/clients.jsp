@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Dell
@@ -56,7 +57,7 @@
 <h1>Add Client</h1>
 <c:url var ="addAction" value="/clients/addClient"/>
 
-<form:form action="${addAction}" modelAttribute="client">
+<form:form action="${addAction}" modelAttribute="client" >
     <table>
         <c:if test="${!empty client.firstName}">
             <tr>
@@ -105,7 +106,14 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="dateOfBirth"/>
+                <%--<fmt:formatDate value="${client.dateOfBirth}"
+                                type="date"
+                                pattern="yyyy.MM/dd"
+                                var="theFormattedDate" />--%>
+                <%--pattern="dd-MM-yyyy"  --%>
+                <fmt:formatDate var="myDate" value="${client.dateOfBirth}" type="date"/>
+                <%--<form:input path="dateOfBirth" value="${myDate}" />--%>
+                <form:input path="dateOfBirth" type="date" />
             </td>
         </tr>
 
@@ -129,7 +137,14 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="login"/>
+                <c:if test="${empty client.login}">
+                    <form:input path="login"/>
+                </c:if>
+                <c:if test="${!empty client.login}">
+                    <form:input path="login" readonly="true" disabled="true"/>
+                    <form:hidden path="login"/>
+                </c:if>
+
             </td>
         </tr>
 
@@ -141,7 +156,14 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="password"/>
+                <c:if test="${empty client.firstName}">
+                    <form:password path="password" showPassword="true"/>
+                </c:if>
+                <c:if test="${!empty client.firstName}">
+                    <form:password path="password" showPassword="true" readonly="true" disabled="true" />
+                    <form:hidden path="password"/>
+                </c:if>
+
             </td>
         </tr>
 

@@ -102,7 +102,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="description"/>
+                <form:textarea path="description"/>
             </td>
 
         </tr>
@@ -114,7 +114,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="recepie"/>
+                <form:textarea path="recepie"/>
             </td>
 
         </tr>

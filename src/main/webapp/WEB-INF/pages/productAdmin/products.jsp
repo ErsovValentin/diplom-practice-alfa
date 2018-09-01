@@ -51,7 +51,7 @@
 </c:if>
 
 <h1>Add a product</h1>
-<c:url var="addAction" value="/product/addProduct"/>
+<c:url var="addAction" value="/products/addProduct"/>
 
 <form:form action="${addAction}" modelAttribute="product">
     <table>
@@ -100,7 +100,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="description"/>
+                <form:textarea path="description"/>
             </td>
         </tr>
 

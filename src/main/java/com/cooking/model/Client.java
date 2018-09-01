@@ -2,6 +2,7 @@ package com.cooking.model;
 
 import com.cooking.model.addition.UserRole;
 import com.cooking.model.addition.UserSex;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,8 +22,9 @@ public class Client {
     @Column(name = "last_name")
     private String lastName;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(value = TemporalType.DATE)
     @Column(name = "client_dob")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
     @Enumerated(EnumType.STRING)

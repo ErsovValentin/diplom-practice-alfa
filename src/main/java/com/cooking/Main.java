@@ -28,8 +28,8 @@ public class Main {
 
 
         Client clientFirst = new Client();
-        String dob = "12-12-1999";
-        Date dateOfBirth = new SimpleDateFormat("dd-MM-yyyy").parse(dob);
+        String dob = "12.12.1999";
+        Date dateOfBirth = new SimpleDateFormat("dd.MM.yyyy").parse(dob);
         clientFirst.setDateOfBirth(dateOfBirth);
         clientFirst.setFirstName("admin");
         clientFirst.setLastName("admin");
