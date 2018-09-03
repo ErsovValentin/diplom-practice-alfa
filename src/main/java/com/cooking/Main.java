@@ -138,5 +138,73 @@ public class Main {
 
 
 
+        /* @Autowired
+    private IngredientDao ingredientDao;
+
+    @Autowired
+    private DishService dishService;
+
+    @Autowired
+    private FavouriteDao favouriteDao;*/
+
+/*
+
+ Dish dishadd = new Dish();
+        dishadd.setName("Baked potatoes with spicy dhal");
+        dishadd.setDescription("Cook red lentils with cumin, mustard seeds and turmeric and serve with a fluffy jacket potato and chutney");
+        dishadd.setRecepie("Heat oven to 200C/180C fan/gas 6. Put the potatoes in the oven and bake for 1 hr until tender and the skin is crispy.\n" +
+                "\n" +
+                "While they are baking, make the dhal. Heat the oil in a medium pan and fry the spices to release their flavours. As soon as they start to crackle, tip in the onion, garlic and chilli, with a splash of water to stop the spices from burning. Cook for 5 mins until the onion softens.\n" +
+                "\n" +
+                "Add the lentils, tomato and stock, then cover and cook for 10 mins. Tip in the chickpeas, cover and cook for 10 mins more until the lentils are tender. Season to taste, stir in the coriander and spoon onto the jacket potatoes. Serve with chutney or lime pickle");
+        dishadd.setType(DishType.SIDE_DISH);
+        dishDao.addDish(dishadd);
+
+
+Client clientFirst = new Client();
+        String dob = "12.12.1999";
+        Date dateOfBirth = null;
+        try {
+            dateOfBirth = new SimpleDateFormat("dd.MM.yyyy").parse(dob);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        clientFirst.setDateOfBirth(dateOfBirth);
+        clientFirst.setFirstName("admin");
+        clientFirst.setLastName("admin");
+        clientFirst.setLogin("admin");
+        clientFirst.setPassword("admin");
+        clientFirst.setRole(UserRole.ADMIN);
+        clientFirst.setSex(UserSex.MALE);
+        clientService.addClient(clientFirst);
+
+
+        Product productFirst = new Product();
+        productFirst.setName("Potatoe");
+        productFirst.setDescription("Potatoeeeee");
+        productFirst.setMeasure(ProductMeasure.GRAM);
+        productFirst.setType(ProductType.VEGETABLE);
+        productService.addProduct(productFirst);
+
+        Ingredient ingredientFirst = new Ingredient();
+        ingredientFirst.setQuantity(500);
+        ingredientFirst.setIngredientDish(dishService.getDishById(1));
+        ingredientFirst.setIngredientProduct(productService.getProductById(3));
+        ingredientDao.addIngredient(ingredientFirst);
+
+
+        Storage storageFirst = new Storage();
+        storageFirst.setActivityOfProduct(StorageActivity.ACTIVE);
+        storageFirst.setQuantityOfProduct(300);
+        storageFirst.setStorageUser(clientService.getClientById(1));
+        storageFirst.setStorageProduct(productService.getProductById(3));
+        storageService.addStorage(storageFirst);
+
+
+        Favourite favouriteFirst = new Favourite();
+        favouriteFirst.setFavouriteUser(clientService.getClientById(1));
+        favouriteFirst.setFavouriteDish(dishService.getDishById(2));
+        favouriteDao.addFavourite(favouriteFirst);*/
+
     }
 }
