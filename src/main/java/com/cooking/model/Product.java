@@ -13,21 +13,21 @@ import java.util.Set;
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     private int id;
 
-    @Column(name = "product_name")
+    @Column(name = "product_name", nullable = false)
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "product_type")
+    @Column(name = "product_type", nullable = false)
     private ProductType type;
 
     @Column(name = "product_description",columnDefinition = "text")
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "product_measure")
+    @Column(name = "product_measure", nullable = false)
     private ProductMeasure measure;
 
     @OneToMany(mappedBy = "ingredientProduct",cascade = CascadeType.ALL)

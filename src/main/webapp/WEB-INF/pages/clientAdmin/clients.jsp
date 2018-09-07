@@ -106,13 +106,7 @@
                 </form:label>
             </td>
             <td>
-                <%--<fmt:formatDate value="${client.dateOfBirth}"
-                                type="date"
-                                pattern="yyyy.MM/dd"
-                                var="theFormattedDate" />--%>
-                <%--pattern="dd-MM-yyyy"  --%>
                 <fmt:formatDate var="myDate" value="${client.dateOfBirth}" type="date"/>
-                <%--<form:input path="dateOfBirth" value="${myDate}" />--%>
                 <form:input path="dateOfBirth" type="date" />
             </td>
         </tr>

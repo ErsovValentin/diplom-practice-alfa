@@ -8,17 +8,18 @@ import com.cooking.service.ClientService;
 import com.cooking.service.DishService;
 import com.cooking.service.ProductService;
 import com.cooking.service.StorageService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class StorageController {
+
+    public static final Logger logger = Logger.getLogger(StorageController.class);
 
     @Autowired
     private StorageService storageService;
@@ -44,7 +45,7 @@ public class StorageController {
     @RequestMapping("/storages")
     public String listOfStorages(Model model, ModelAndView modelAndView)
     {
-        /*Dish dishadd = new Dish();
+       /* Dish dishadd = new Dish();
         dishadd.setName("Baked potatoes with spicy dhal");
         dishadd.setDescription("Cook red lentils with cumin, mustard seeds and turmeric and serve with a fluffy jacket potato and chutney");
         dishadd.setRecepie("Heat oven to 200C/180C fan/gas 6. Put the potatoes in the oven and bake for 1 hr until tender and the skin is crispy.\n" +
@@ -99,16 +100,15 @@ public class StorageController {
         Favourite favouriteFirst = new Favourite();
         favouriteFirst.setFavouriteUser(clientService.getClientById(2));
         favouriteFirst.setFavouriteDish(dishService.getDishById(1));
-        favouriteDao.addFavourite(favouriteFirst);*/
-
-
+        favouriteDao.addFavourite(favouriteFirst);
+*/
 
         model.addAttribute("listOfStorages", storageService.getAllStorages());
         model.addAttribute("storage",new Storage());
         model.addAttribute("listOfClients",clientService.getAllCliets());
         model.addAttribute("listOfProducts",productService.getAllProducts());
-        modelAndView.addObject("active",StorageActivity.ACTIVE);
         modelAndView.addObject("storageActivity",StorageActivity.values());
+        modelAndView.addObject("active",StorageActivity.ACTIVE);
 
         return "/storageAdmin/storages";
     }
@@ -116,6 +116,7 @@ public class StorageController {
     @RequestMapping(value = "storages/addStorage", method = RequestMethod.POST)
     public String addStorage(@ModelAttribute("storage")Storage storage)
     {
+
         if(storage.getId() == 0)
         {
             storageService.addStorage(storage);
@@ -128,10 +129,13 @@ public class StorageController {
         return "redirect:/storages";
     }
 
-    @RequestMapping("/updateStorage/{id}")
-    public String updateStorage(@PathVariable("id") int storageId, Model model)
+    @RequestMapping(value="/updateStorage/{id}")
+    public String updateStorage(@PathVariable("id") int storageId, Model model, ModelAndView modelAndView)
     {
+        modelAndView.addObject("storageActivity",StorageActivity.values());
         model.addAttribute("listOfStorages",storageService.getAllStorages());
+        model.addAttribute("listOfClients",clientService.getAllCliets());
+        model.addAttribute("listOfProducts",productService.getAllProducts());
         model.addAttribute("storage", storageService.getStorageById(storageId));
 
         return "/storageAdmin/storages";
@@ -143,5 +147,11 @@ public class StorageController {
         storageService.deleteStorage(storageService.getStorageById(storageId));
 
         return "redirect:/storages";
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void handle(Exception e) {
+        logger.warn("Returning HTTP 400 Bad Request", e);
     }
 }
