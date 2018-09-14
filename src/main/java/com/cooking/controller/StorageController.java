@@ -1,7 +1,10 @@
 package com.cooking.controller;
 
+import com.cooking.controller.model.StorageRequest;
 import com.cooking.dao.FavouriteDao;
 import com.cooking.dao.IngredientDao;
+import com.cooking.model.Client;
+import com.cooking.model.Product;
 import com.cooking.model.Storage;
 import com.cooking.model.addition.StorageActivity;
 import com.cooking.service.ClientService;
@@ -19,28 +22,29 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class StorageController {
 
-    public static final Logger logger = Logger.getLogger(StorageController.class);
+    private static final Logger logger = Logger.getLogger(StorageController.class);
+
+    private final StorageService storageService;
+    private final ClientService clientService;
+    private final ProductService productService;
+    private final IngredientDao ingredientDao;
+    private final DishService dishService;
+    private final FavouriteDao favouriteDao;
 
     @Autowired
-    private StorageService storageService;
-
-    @Autowired
-    private ClientService clientService;
-
-    @Autowired
-    private ProductService productService;
-
-     @Autowired
-    private IngredientDao ingredientDao;
-
-    @Autowired
-    private DishService dishService;
-
-    @Autowired
-    private FavouriteDao favouriteDao;
-
-
-
+    public StorageController(final StorageService storageService,
+                      final ClientService clientService,
+                      final ProductService productService,
+                      final IngredientDao ingredientDao,
+                      final DishService dishService,
+                      final FavouriteDao favouriteDao) {
+        this.storageService = storageService;
+        this.clientService = clientService;
+        this.productService = productService;
+        this.ingredientDao = ingredientDao;
+        this.dishService = dishService;
+        this.favouriteDao = favouriteDao;
+    }
 
     @RequestMapping("/storages")
     public String listOfStorages(Model model, ModelAndView modelAndView)
@@ -104,7 +108,7 @@ public class StorageController {
 */
 
         model.addAttribute("listOfStorages", storageService.getAllStorages());
-        model.addAttribute("storage",new Storage());
+        model.addAttribute("storage",new StorageRequest());
         model.addAttribute("listOfClients",clientService.getAllCliets());
         model.addAttribute("listOfProducts",productService.getAllProducts());
         modelAndView.addObject("storageActivity",StorageActivity.values());
@@ -114,15 +118,21 @@ public class StorageController {
     }
 
     @RequestMapping(value = "storages/addStorage", method = RequestMethod.POST)
-    public String addStorage(@ModelAttribute("storage")Storage storage)
+    public String addStorage(@ModelAttribute("storage") StorageRequest storageRequest)
     {
+        final Product product = productService.getProductById(storageRequest.getProductId());
+        final Client  user = clientService.getClientById(storageRequest.getUserId());
 
-        if(storage.getId() == 0)
+        if(storageRequest.getId() == 0)
         {
+            final Storage storage = storageRequest.toEntity(product, user);
             storageService.addStorage(storage);
         }
         else
         {
+            final Storage storage = storageService.getStorageById(storageRequest.getId());
+            storage.setStorageProduct(product);
+            storage.setStorageUser(user);
             storageService.updateStorage(storage);
         }
 
@@ -132,11 +142,13 @@ public class StorageController {
     @RequestMapping(value="/updateStorage/{id}")
     public String updateStorage(@PathVariable("id") int storageId, Model model, ModelAndView modelAndView)
     {
+        final Storage storage = storageService.getStorageById(storageId);
+
+        model.addAttribute("storage", StorageRequest.fromEntity(storage));
         modelAndView.addObject("storageActivity",StorageActivity.values());
         model.addAttribute("listOfStorages",storageService.getAllStorages());
         model.addAttribute("listOfClients",clientService.getAllCliets());
         model.addAttribute("listOfProducts",productService.getAllProducts());
-        model.addAttribute("storage", storageService.getStorageById(storageId));
 
         return "/storageAdmin/storages";
     }

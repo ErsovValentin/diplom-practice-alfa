@@ -55,7 +55,7 @@
 
 <form:form action="${addAction}" modelAttribute="storage">
     <table>
-        <c:if test="${!empty storage.storageUser}">
+        <c:if test="${storage.userId != 0}">
             <tr>
                 <td>
                     <form:label path="id">
@@ -72,35 +72,29 @@
 
         <tr>
             <td>
-                <form:label path="storageUser">
+                <form:label path="userId">
                     <spring:message text="User"/>
                 </form:label>
             </td>
             <td>
-                <form:select path="storageUser">
+                <form:select path="userId">
                     <c:forEach items="${listOfClients}" var="client">
                         <form:option value="${client.id}">${client.id} | ${client.firstName} ${client.lastName}</form:option>
                     </c:forEach>
-                    <%--<form:options items="${listOfClients}"  itemLabel="firstName"/>--%>
                 </form:select>
-                <c:out value="${storage.storageUser}"/>
             </td>
         </tr>
 
         <tr>
             <td>
-                <form:label path="storageProduct">
+                <form:label path="productId">
                     <spring:message text="Product"/>
                 </form:label>
             </td>
             <td>
-                <form:select path="storageProduct">
-                    <c:forEach items="${listOfProducts}" var="product">
-                    <form:option value="${product.id}">${product.name}</form:option>
-                    </c:forEach>
-                    <%--<form:options items="${listOfProducts}"  itemLabel="name"/>--%>
+                <form:select path="productId">
+                    <form:options items="${listOfProducts}"  itemLabel="name" itemValue="id"/>
                 </form:select>
-                <c:out value="${storage.storageProduct}"/>
             </td>
         </tr>
 
@@ -132,12 +126,14 @@
 
         <tr>
             <td>
-                <c:if test="${empty storage.storageUser}">
-                    <input type="submit" value="<spring:message text="Add storage node"/> "/>
-                </c:if>
-                <c:if test="${!empty storage.storageUser}">
-                    <input type="submit" value="<spring:message text="Update storage node"/> "/>
-                </c:if>
+                <c:choose>
+                    <c:when test="${storage.userId == 0}">
+                        <input type="submit" value="<spring:message text="Add storage node"/> "/>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="submit" value="<spring:message text="Update storage node"/> "/>
+                    </c:otherwise>
+                </c:choose>
             </td>
         </tr>
 
