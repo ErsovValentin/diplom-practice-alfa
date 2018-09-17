@@ -94,7 +94,7 @@ public class StorageController {
 
 
         Storage storageFirst = new Storage();
-        storageFirst.setActivityOfProduct(StorageActivity.ACTIVE);
+        storageFirst.setActivityOfProduct(StorageActivity.INACTIVE);
         storageFirst.setQuantityOfProduct(300);
         storageFirst.setStorageUser(clientService.getClientById(2));
         storageFirst.setStorageProduct(productService.getProductById(3));
@@ -104,8 +104,7 @@ public class StorageController {
         Favourite favouriteFirst = new Favourite();
         favouriteFirst.setFavouriteUser(clientService.getClientById(2));
         favouriteFirst.setFavouriteDish(dishService.getDishById(1));
-        favouriteDao.addFavourite(favouriteFirst);
-*/
+        favouriteDao.addFavourite(favouriteFirst);*/
 
         model.addAttribute("listOfStorages", storageService.getAllStorages());
         model.addAttribute("storage",new StorageRequest());
@@ -133,6 +132,8 @@ public class StorageController {
             final Storage storage = storageService.getStorageById(storageRequest.getId());
             storage.setStorageProduct(product);
             storage.setStorageUser(user);
+            storage.setActivityOfProduct(storageRequest.getActivityOfProduct());
+            storage.setQuantityOfProduct(storageRequest.getQuantityOfProduct());
             storageService.updateStorage(storage);
         }
 

@@ -36,8 +36,8 @@
                 <td>${storage.quantityOfProduct}</td>
 
                 <td>
-                    <input type="checkbox" name="active" readonly disabled
-                           <c:if test="${storage.activityOfProduct != active}">checked="checked"</c:if>
+                    <input type="checkbox" name="activity" readonly disabled
+                           <c:if test="${!storage.activityOfProduct.name.equals(active.name)}">checked="checked"</c:if>
                     />
                 </td>
                 <td>${storage.storageProduct.name}</td>

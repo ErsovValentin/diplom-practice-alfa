@@ -42,8 +42,8 @@ public class Client implements Serializable {
     @Column(name = "client_role")
     private UserRole role;
 
-    @OneToOne(mappedBy = "storageUser",cascade = CascadeType.ALL)
-    private Storage storage;
+    @OneToMany(mappedBy = "storageUser",cascade = CascadeType.ALL)
+    private Set<Storage> storage;
 
     @OneToMany(mappedBy = "favouriteUser",cascade = CascadeType.ALL)
     private Set<Favourite> favourites;
@@ -112,11 +112,11 @@ public class Client implements Serializable {
         this.role = role;
     }
 
-    public Storage getStorage() {
+    public Set<Storage> getStorage() {
         return storage;
     }
 
-    public void setStorage(Storage storage) {
+    public void setStorage(Set<Storage> storage) {
         this.storage = storage;
     }
 

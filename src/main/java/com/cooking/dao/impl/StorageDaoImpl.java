@@ -42,6 +42,16 @@ public class StorageDaoImpl implements StorageDao {
         return session().get(Storage.class,id);
     }
 
+    /*public Storage getStorageByIdProductClient(int id, Product product, Client client) {
+        Storage storage = (Storage) session()
+                .createQuery("select s from Storage s where s.id = ?1 and s.storageProduct = ?2 and storageUser = ?3", Storage.class)
+                .setParameter(1,id)
+                .setParameter(2, product)
+                .setParameter(3, client)
+                .getSingleResult();
+        return storage;
+    }*/
+
     public void addStorage(Storage storageAdd) {
         session().save(storageAdd);
     }

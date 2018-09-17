@@ -4,10 +4,11 @@ package com.cooking.model;
 import com.cooking.model.addition.StorageActivity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "storage")
-public class Storage {
+public class Storage implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "storage_id")
@@ -24,7 +25,7 @@ public class Storage {
     @JoinColumn(name = "product_id")
     private Product storageProduct;
 
-    @OneToOne( fetch = FetchType.EAGER)
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Client storageUser;
 
