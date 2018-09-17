@@ -37,7 +37,7 @@
 
                 <td>
                     <input type="checkbox" name="activity" readonly disabled
-                           <c:if test="${!storage.activityOfProduct.name.equals(active.name)}">checked="checked"</c:if>
+                           <c:if test='${storage.activityOfProduct.equals("Active")}'>checked="checked"</c:if>
                     />
                 </td>
                 <td>${storage.storageProduct.name}</td>
@@ -54,7 +54,7 @@
 <c:url var="addAction" value="/storages/addStorage"/>
 
 <form:form action="${addAction}" modelAttribute="storage">
-    <table>
+<table>
         <c:if test="${storage.userId != 0}">
             <tr>
                 <td>
@@ -84,6 +84,38 @@
                 </form:select>
             </td>
         </tr>
+
+
+        <%--<tr>
+            <td>
+                <form:label path="userId">
+                    <spring:message text="User"/>
+                </form:label>
+            </td>
+            <td>
+        <c:choose>
+            <c:when test="${storage.userId != 0}">
+
+                   &lt;%&ndash; <form:select path="userId" disabled="true" >
+                        <c:forEach items="${listOfClients}" var="client">
+                            <form:option value="${client.id}">${client.id} | ${client.firstName} ${client.lastName}</form:option>
+                        </c:forEach>
+                    </form:select>
+                    <form:hidden path="userId"/>&ndash;%&gt;
+                <form:input path="userId" readonly="true" disabled="true"/>
+                <form:hidden path="userId"/>
+
+            </c:when>
+            <c:otherwise>
+                        <form:select path="userId">
+                            <c:forEach items="${listOfClients}" var="client">
+                                <form:option value="${client.id}">${client.id} | ${client.firstName} ${client.lastName}</form:option>
+                            </c:forEach>
+                        </form:select>
+            </c:otherwise>
+        </c:choose>
+        </td>
+        </tr>--%>
 
         <tr>
             <td>

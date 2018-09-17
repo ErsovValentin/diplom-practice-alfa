@@ -33,11 +33,11 @@ public class StorageController {
 
     @Autowired
     public StorageController(final StorageService storageService,
-                      final ClientService clientService,
-                      final ProductService productService,
-                      final IngredientDao ingredientDao,
-                      final DishService dishService,
-                      final FavouriteDao favouriteDao) {
+                             final ClientService clientService,
+                             final ProductService productService,
+                             final IngredientDao ingredientDao,
+                             final DishService dishService,
+                             final FavouriteDao favouriteDao) {
         this.storageService = storageService;
         this.clientService = clientService;
         this.productService = productService;
@@ -59,8 +59,6 @@ public class StorageController {
                 "Add the lentils, tomato and stock, then cover and cook for 10 mins. Tip in the chickpeas, cover and cook for 10 mins more until the lentils are tender. Season to taste, stir in the coriander and spoon onto the jacket potatoes. Serve with chutney or lime pickle");
         dishadd.setType(DishType.SIDE_DISH);
         dishService.addDish(dishadd);
-
-
         Client clientFirst = new Client();
         String dob = "12.12.1999";
         Date dateOfBirth = null;
@@ -77,34 +75,28 @@ public class StorageController {
         clientFirst.setRole(UserRole.ADMIN);
         clientFirst.setSex(UserSex.MALE);
         clientService.addClient(clientFirst);
-
-
         Product productFirst = new Product();
         productFirst.setName("Potatoe");
         productFirst.setDescription("Potatoeeeee");
         productFirst.setMeasure(ProductMeasure.GRAM);
         productFirst.setType(ProductType.VEGETABLE);
         productService.addProduct(productFirst);
-
         Ingredient ingredientFirst = new Ingredient();
         ingredientFirst.setQuantity(500);
         ingredientFirst.setIngredientDish(dishService.getDishById(1));
         ingredientFirst.setIngredientProduct(productService.getProductById(3));
         ingredientDao.addIngredient(ingredientFirst);
-
-
         Storage storageFirst = new Storage();
-        storageFirst.setActivityOfProduct(StorageActivity.INACTIVE);
+        storageFirst.setActivityOfProduct(StorageActivity.ACTIVE);
         storageFirst.setQuantityOfProduct(300);
         storageFirst.setStorageUser(clientService.getClientById(2));
         storageFirst.setStorageProduct(productService.getProductById(3));
         storageService.addStorage(storageFirst);
-
-
         Favourite favouriteFirst = new Favourite();
         favouriteFirst.setFavouriteUser(clientService.getClientById(2));
         favouriteFirst.setFavouriteDish(dishService.getDishById(1));
-        favouriteDao.addFavourite(favouriteFirst);*/
+        favouriteDao.addFavourite(favouriteFirst);
+*/
 
         model.addAttribute("listOfStorages", storageService.getAllStorages());
         model.addAttribute("storage",new StorageRequest());
@@ -132,8 +124,8 @@ public class StorageController {
             final Storage storage = storageService.getStorageById(storageRequest.getId());
             storage.setStorageProduct(product);
             storage.setStorageUser(user);
-            storage.setActivityOfProduct(storageRequest.getActivityOfProduct());
             storage.setQuantityOfProduct(storageRequest.getQuantityOfProduct());
+            storage.setActivityOfProduct(storageRequest.getActivityOfProduct());
             storageService.updateStorage(storage);
         }
 
