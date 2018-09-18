@@ -103,7 +103,8 @@ public class StorageController {
         model.addAttribute("listOfClients",clientService.getAllCliets());
         model.addAttribute("listOfProducts",productService.getAllProducts());
         modelAndView.addObject("storageActivity",StorageActivity.values());
-        modelAndView.addObject("active",StorageActivity.ACTIVE);
+        model.addAttribute("activity",StorageActivity.values());
+//        modelAndView.addObject("inactive",StorageActivity.INACTIVE);
 
         return "/storageAdmin/storages";
     }
@@ -137,6 +138,7 @@ public class StorageController {
     {
         final Storage storage = storageService.getStorageById(storageId);
 
+        model.addAttribute("activity",StorageActivity.values());
         model.addAttribute("storage", StorageRequest.fromEntity(storage));
         modelAndView.addObject("storageActivity",StorageActivity.values());
         model.addAttribute("listOfStorages",storageService.getAllStorages());

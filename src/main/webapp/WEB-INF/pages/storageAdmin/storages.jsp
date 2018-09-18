@@ -37,7 +37,7 @@
 
                 <td>
                     <input type="checkbox" name="activity" readonly disabled
-                           <c:if test='${storage.activityOfProduct.equals("Active")}'>checked="checked"</c:if>
+                           <c:if test="${storage.activityOfProduct.name == 'Active'}">checked="checked"</c:if>
                     />
                 </td>
                 <td>${storage.storageProduct.name}</td>
@@ -69,24 +69,7 @@
             </tr>
         </c:if>
 
-
         <tr>
-            <td>
-                <form:label path="userId">
-                    <spring:message text="User"/>
-                </form:label>
-            </td>
-            <td>
-                <form:select path="userId">
-                    <c:forEach items="${listOfClients}" var="client">
-                        <form:option value="${client.id}">${client.id} | ${client.firstName} ${client.lastName}</form:option>
-                    </c:forEach>
-                </form:select>
-            </td>
-        </tr>
-
-
-        <%--<tr>
             <td>
                 <form:label path="userId">
                     <spring:message text="User"/>
@@ -95,13 +78,6 @@
             <td>
         <c:choose>
             <c:when test="${storage.userId != 0}">
-
-                   &lt;%&ndash; <form:select path="userId" disabled="true" >
-                        <c:forEach items="${listOfClients}" var="client">
-                            <form:option value="${client.id}">${client.id} | ${client.firstName} ${client.lastName}</form:option>
-                        </c:forEach>
-                    </form:select>
-                    <form:hidden path="userId"/>&ndash;%&gt;
                 <form:input path="userId" readonly="true" disabled="true"/>
                 <form:hidden path="userId"/>
 
@@ -115,7 +91,7 @@
             </c:otherwise>
         </c:choose>
         </td>
-        </tr>--%>
+        </tr>
 
         <tr>
             <td>
@@ -124,11 +100,22 @@
                 </form:label>
             </td>
             <td>
-                <form:select path="productId">
-                    <form:options items="${listOfProducts}"  itemLabel="name" itemValue="id"/>
-                </form:select>
+                <c:choose>
+                    <c:when test="${storage.userId != 0}">
+                        <form:input path="productId" readonly="true" disabled="true"/>
+                        <form:hidden path="productId"/>
+
+                    </c:when>
+                    <c:otherwise>
+                        <form:select path="productId">
+                            <form:options items="${listOfProducts}"  itemLabel="name" itemValue="id"/>
+                        </form:select>
+                    </c:otherwise>
+                </c:choose>
             </td>
         </tr>
+
+
 
         <tr>
             <td>
@@ -147,11 +134,19 @@
                     <spring:message text="Activity"/>
                 </form:label>
             </td>
+
+
+            <%--<spring:bind path="someForm.booleanFieldName">
+                <input type=”hidden” name=”_<c:out value=”${status.expression}”/>” value=”visible” />
+                <input type=”checkbox” name=”<c:out value=”${status.expression}”/>” value=”true” <c:if test=”${status.value}”>checked</c:if>>
+            </spring:bind>--%>
+
+
             <td>
-                <%--<form:checkboxes path="activityOfProduct" items="${storageActivity}"/>--%>
-                <form:select path="activityOfProduct">
+                <%--<form:select path="activityOfProduct">
                     <form:options items="${storageActivity}" itemLabel="name"/>
-                </form:select>
+                </form:select>--%>
+                <form:checkboxes path="activityOfProduct" items="${activity}" itemLabel="name"/>
             </td>
         </tr>
 
