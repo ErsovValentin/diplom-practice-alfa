@@ -22,6 +22,7 @@
     <li><a href="<c:url value="/clients"/> ">Clients list</a></li>
     <li><a href="<c:url value="/storages"/> ">Storages list</a></li>
     <li><a href="<c:url value="/ingredients"/> ">Ingredients list</a></li>
+    <li><a href="<c:url value="/favourites"/> ">Favourites list</a></li>
 </ul>
 </body>
 </html>
