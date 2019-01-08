@@ -29,7 +29,6 @@ public class IngredientDaoImpl implements IngredientDao {
         return sessionFactory.getCurrentSession();
     }
 
-
     public ArrayList<Ingredient> getAllIngredients() {
 
         return (ArrayList<Ingredient>)session()
@@ -37,16 +36,17 @@ public class IngredientDaoImpl implements IngredientDao {
                 .list();
     }
 
-//    public Ingredient getIngredientById(int id) {
-//        return session().get(Ingredient.class,id);
-//    }
-
+    @Override
+    public Ingredient getIngredientById(int id) {
+        return session().get(Ingredient.class, id);
+    }
 
     public Ingredient getIngredientByDishAndProduct(Dish dish, Product product) {
-       Ingredient ingredient = (Ingredient)session()
-               .createQuery("select i from Ingredient i where i.ingredientDish = ?1 and i.ingredientProduct = ?2",Ingredient.class)
-               .setParameter(1,dish).setParameter(2,product).getSingleResult();
-        return ingredient;
+        return  session()
+                .createQuery("select i from Ingredient i where i.ingredientDish = ?1 and i.ingredientProduct = ?2",Ingredient.class)
+                .setParameter(1,dish)
+                .setParameter(2,product)
+                .getSingleResult();
     }
 
     public void addIngredient(Ingredient ingredientAdd) {

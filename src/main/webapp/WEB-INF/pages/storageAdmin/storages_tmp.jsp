@@ -39,7 +39,7 @@
                     />
                 </td>
                 <td>${storage.storageProduct.name}</td>
-                <td>${storage.storageUser.id}</td>
+                <td>${storage.storageClient.id}</td>
                 <td><a href="<c:url value='/updateStorage/${storage.id}'/>">Update </a></td>
                 <td><a href="<c:url value='/deleteStorage/${storage.id}'/>">Delete </a></td>
             </tr>

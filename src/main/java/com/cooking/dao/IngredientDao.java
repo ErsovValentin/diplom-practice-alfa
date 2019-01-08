@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public interface IngredientDao {
 
     ArrayList<Ingredient> getAllIngredients();
+    Ingredient getIngredientById(int id);
     Ingredient getIngredientByDishAndProduct(Dish dish, Product product);
     void addIngredient(Ingredient ingredientAdd);
     void updateIngredient(Ingredient ingredientUpdate);

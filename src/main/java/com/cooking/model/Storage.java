@@ -1,33 +1,26 @@
 package com.cooking.model;
 
 
-import com.cooking.model.addition.StorageActivity;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "storage")
 public class Storage implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "storage_id")
     private int id;
 
-    @Column(name = "quantity_product")
-    private float quantityOfProduct;
+    @Column(name = "storage_name")
+    private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "product_activity")
-    private StorageActivity activityOfProduct;
+    @OneToMany(mappedBy = "storage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<StorageProducts> storageProducts;
 
-    @ManyToOne( fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id")
-    private Product storageProduct;
-
-    @ManyToOne( fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private Client storageUser;
+    @OneToMany(mappedBy = "storage", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Client> clients;
 
     public Storage() {
     }
@@ -40,46 +33,35 @@ public class Storage implements Serializable {
         this.id = id;
     }
 
-    public float getQuantityOfProduct() {
-        return quantityOfProduct;
+    public String getName() {
+        return name;
     }
 
-    public void setQuantityOfProduct(float quantityOfProduct) {
-        this.quantityOfProduct = quantityOfProduct;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public StorageActivity getActivityOfProduct() {
-        return activityOfProduct;
+    public Set<StorageProducts> getStorageProducts() {
+        return storageProducts;
     }
 
-    public void setActivityOfProduct(StorageActivity activityOfProduct) {
-        this.activityOfProduct = activityOfProduct;
+    public void setStorageProducts(Set<StorageProducts> storageProducts) {
+        this.storageProducts = storageProducts;
     }
 
-    public Product getStorageProduct() {
-        return storageProduct;
+    public Set<Client> getClients() {
+        return clients;
     }
 
-    public void setStorageProduct(Product storageProduct) {
-        this.storageProduct = storageProduct;
-    }
-
-    public Client getStorageUser() {
-        return storageUser;
-    }
-
-    public void setStorageUser(Client storageUser) {
-        this.storageUser = storageUser;
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
     }
 
     @Override
     public String toString() {
         return "Storage{" +
                 "id=" + id +
-                ", quantityOfProduct=" + quantityOfProduct +
-                ", activityOfProduct=" + activityOfProduct +
-                ", storageProduct=" + storageProduct.getName() +
-                ", storageUser=" + storageUser.getFirstName() + " " + storageUser.getLastName()+
+                ", name='" + name + '\'' +
                 '}';
     }
 }

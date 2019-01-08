@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "product")
 public class Product implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false)
     private int id;
 
@@ -33,8 +33,8 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "ingredientProduct",cascade = CascadeType.ALL)
     private Set<Ingredient> ingredients;
 
-    @OneToMany(mappedBy = "storageProduct",cascade = CascadeType.ALL)
-    private Set<Storage> storages;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private Set<StorageProducts> storageProducts;
 
     public Product() {
     }
@@ -87,12 +87,12 @@ public class Product implements Serializable {
         this.ingredients = ingredients;
     }
 
-    public Set<Storage> getStorages() {
-        return storages;
+    public Set<StorageProducts> getStorageProducts() {
+        return storageProducts;
     }
 
-    public void setStorages(Set<Storage> storages) {
-        this.storages = storages;
+    public void setStorageProducts(Set<StorageProducts> storageProducts) {
+        this.storageProducts = storageProducts;
     }
 
     @Override

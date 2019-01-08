@@ -1,41 +1,19 @@
 package com.cooking.service;
 
-
-import com.cooking.dao.FavouriteDao;
+import com.cooking.model.Client;
+import com.cooking.model.Dish;
 import com.cooking.model.Favourite;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class FavouriteService {
+public interface FavouriteService {
 
-    @Autowired
-    private FavouriteDao favouriteDao;
-
-    public List<Favourite> getAllFavourites()
-    {
-        return favouriteDao.getAllFavourites();
-    }
-
-    public Favourite getFavouriteById(int favouriteId)
-    {
-        return favouriteDao.getFavouriteById(favouriteId);
-    }
-
-    public void addFavourite (Favourite favouriteAdd)
-    {
-        favouriteDao.addFavourite(favouriteAdd);
-    }
-
-    public void updateFavourite (Favourite favouriteUpdate)
-    {
-        favouriteDao.updateFavoutite(favouriteUpdate);
-    }
-
-    public void deleteFavourite (Favourite favouriteDelete)
-    {
-        favouriteDao.deleteFavourite(favouriteDelete);
-    }
+    ArrayList<Favourite> getAllFavourites();
+    Favourite getFavouriteById(int id);
+    void addFavourite(Favourite favouriteAdd);
+    void updateFavoutite(Favourite favouriteUpdate);
+    void deleteFavourite(Favourite favouriteDelete);
+    List<Favourite> getFavouritesByClient(Client client);
+    List<Favourite> getFavouritesByDish(Dish dish);
 }

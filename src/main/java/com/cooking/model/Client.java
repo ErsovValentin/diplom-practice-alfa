@@ -13,15 +13,18 @@ import java.util.Set;
 @Table(name = "client")
 public class Client implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "client_id")
     private int id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
     @Temporal(value = TemporalType.DATE)
     @Column(name = "client_dob")
@@ -29,24 +32,38 @@ public class Client implements Serializable {
     private Date dateOfBirth;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "client_sex")
+    @Column(name = "client_sex", nullable = false)
     private UserSex sex;
 
-    @Column(name = "client_login")
+    @Lob
+    @Column(name = "client_avatar")
+    private byte[] avatar;
+
+    @Column(name = "client_login", nullable = false)
     private String login;
 
-    @Column(name = "client_password")
+    @Column(name = "client_password", nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "client_role")
+    @Column(name = "client_role", nullable = false)
     private UserRole role;
 
-    @OneToMany(mappedBy = "storageUser",cascade = CascadeType.ALL)
-    private Set<Storage> storage;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "storage_id")
+    private Storage storage;
 
-    @OneToMany(mappedBy = "favouriteUser",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "favouriteClient",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Favourite> favourites;
+
+    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Like> like;
+
+    @OneToMany(mappedBy = "authorClient",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Dish> dishes;
+
+    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Comment> comments;
 
     public int getId() {
         return id;
@@ -72,6 +89,14 @@ public class Client implements Serializable {
         this.lastName = lastName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -86,6 +111,14 @@ public class Client implements Serializable {
 
     public void setSex(UserSex sex) {
         this.sex = sex;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
     }
 
     public String getLogin() {
@@ -112,11 +145,11 @@ public class Client implements Serializable {
         this.role = role;
     }
 
-    public Set<Storage> getStorage() {
+    public Storage getStorage() {
         return storage;
     }
 
-    public void setStorage(Set<Storage> storage) {
+    public void setStorage(Storage storage) {
         this.storage = storage;
     }
 
@@ -128,12 +161,29 @@ public class Client implements Serializable {
         this.favourites = favourites;
     }
 
+    public Set<Like> getLike() {
+        return like;
+    }
+
+    public void setLike(Set<Like> like) {
+        this.like = like;
+    }
+
+    public Set<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(Set<Dish> dishes) {
+        this.dishes = dishes;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", sex=" + sex +
                 ", login='" + login + '\'' +

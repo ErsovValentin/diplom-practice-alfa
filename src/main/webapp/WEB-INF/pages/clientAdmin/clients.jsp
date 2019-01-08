@@ -98,7 +98,6 @@
         </tr>
 
 
-        <%--Shoud add date format of input--%>
         <tr>
             <td>
                 <form:label path="dateOfBirth">

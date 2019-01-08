@@ -33,7 +33,7 @@ public class HibernateConfig {
     {
         final LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.cooking.model");
+        sessionFactory.setPackagesToScan("com.cooking");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -51,9 +51,9 @@ public class HibernateConfig {
     {
         final Properties properties = new Properties();
         properties.put("hibernate.dialect","org.hibernate.dialect.PostgreSQLDialect");
-        properties.put("hibernate.show_sql","true");
-        properties.put("hibernate.format_sql","true");
-//        properties.put("hibernate.hbm2ddl.auto", "create");
+//        properties.put("hibernate.show_sql","true");
+//        properties.put("hibernate.format_sql","true");
+        properties.put("hibernate.hbm2ddl.auto", "create");
 //        properties.put("hibernate.hbm2ddl.auto", "update");
         return properties;
     }

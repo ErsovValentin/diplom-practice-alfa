@@ -3,19 +3,20 @@ package com.cooking.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "favourite")
+@Table(name = "favourite",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"client_id", "dish_id"})})
 public class Favourite {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "favourite_id")
     private int id;
 
     @ManyToOne( fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private Client favouriteUser;
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client favouriteClient;
 
     @ManyToOne( fetch = FetchType.EAGER)
-    @JoinColumn(name = "dish_id")
+    @JoinColumn(name = "dish_id", nullable = false)
     private Dish favouriteDish;
 
     public Favourite() {
@@ -29,12 +30,12 @@ public class Favourite {
         this.id = id;
     }
 
-    public Client getFavouriteUser() {
-        return favouriteUser;
+    public Client getFavouriteClient() {
+        return favouriteClient;
     }
 
-    public void setFavouriteUser(Client favouriteUser) {
-        this.favouriteUser = favouriteUser;
+    public void setFavouriteClient(Client favouriteClient) {
+        this.favouriteClient = favouriteClient;
     }
 
     public Dish getFavouriteDish() {
@@ -49,7 +50,7 @@ public class Favourite {
     public String toString() {
         return "Favourite{" +
                 "id=" + id +
-                ", favouriteUser=" + favouriteUser.getFirstName()+ " " +favouriteUser.getLastName()+
+                ", favouriteUser=" + favouriteClient.getFirstName()+ " " +favouriteClient.getLastName()+
                 ", favouriteDish=" + favouriteDish.getName() +
                 '}';
     }

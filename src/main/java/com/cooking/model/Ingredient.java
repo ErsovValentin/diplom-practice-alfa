@@ -4,22 +4,35 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "ingredient")
+@Table(name = "ingredient",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"dish_id", "product_id"})})
 public class Ingredient implements Serializable {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ingredient_id")
+    private int id;
+
     @ManyToOne( fetch = FetchType.EAGER)
-    @JoinColumn(name = "dish_id")
+    @JoinColumn(name = "dish_id", nullable = false)
     private Dish ingredientDish;
 
-    @Id
     @ManyToOne( fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Product ingredientProduct;
 
-    @Column(name = "ingredient_quantity")
+    @Column(name = "ingredient_quantity", nullable = false)
     private float quantity;
 
     public Ingredient() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Dish getIngredientDish() {
@@ -49,7 +62,8 @@ public class Ingredient implements Serializable {
     @Override
     public String toString() {
         return "Ingredient{" +
-                "ingredientDish=" + ingredientDish.getName() +
+                "id=" + id +
+                ", ingredientDish=" + ingredientDish.getName() +
                 ", ingredientProduct=" + ingredientProduct.getName() +
                 ", quantity=" + quantity +
                 '}';

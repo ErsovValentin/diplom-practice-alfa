@@ -1,26 +1,22 @@
 package com.cooking.service;
 
-
-import com.cooking.dao.DishDao;
+import com.cooking.model.Client;
 import com.cooking.model.Dish;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.cooking.model.Product;
+import com.cooking.model.Storage;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class DishService {
+public interface DishService {
 
-    @Autowired
-    DishDao dishDao;
-
-    public List<Dish> getAllDishes()
-    {
-        return dishDao.getAllDishes();
-    }
-    public Dish getDishById(int dishId){return dishDao.getDishById(dishId);}
-    public void addDish(Dish dishAdd){dishDao.addDish(dishAdd);}
-    public void updateDish (Dish dishUpdate) { dishDao.updateDish(dishUpdate);}
-    public void deleteDish (Dish dishDelete) {dishDao.deleteDish(dishDelete);}
-
+    ArrayList<Dish> getAllDishes();
+    Dish getDishById(int id);
+    void addDish(Dish dishAdd);
+    void updateDish(Dish dishUpdate);
+    void deleteDish(Dish dishDelete);
+    List<Dish> getDishesByProduct(Product product);
+    List<Dish> getFavouriteDishesByClient(Client client);
+    List<Dish> getDishesByStorage(Storage storage);
+    List<Dish> getDishesByClient(Client client);
 }

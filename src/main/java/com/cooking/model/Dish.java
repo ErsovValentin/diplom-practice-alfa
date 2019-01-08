@@ -1,35 +1,43 @@
 package com.cooking.model;
 
 import com.cooking.model.addition.DishType;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Table(name = "dish")
-@JsonIgnoreProperties(value = {"ingredients" , "favourites"})
 public class Dish implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dish_id")
     private int id;
 
-    @Column(name = "dish_name",length = 255)
+    @Column(name = "dish_name",length = 100, nullable = false)
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "dish_type")
+    @Column(name = "dish_type", nullable = false)
     private DishType type;
 
     @Column(name = "dish_description",columnDefinition = "text")
     private String description;
 
-    @Column(name = "dish_recepie",columnDefinition = "text")
-    private String recepie;
+    @Column(name = "dish_time_cooking", nullable = false)
+    private float timeOfCooking;
+
+    @Temporal(value = TemporalType.TIMESTAMP)
+    @Column(name = "dish_date_create", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date dateOfCreate;
+
+    @Lob
+    @Column(name = "dish_image")
+    private byte[] image;
 
     @OneToMany(mappedBy = "ingredientDish",cascade = CascadeType.ALL)
     private Set<Ingredient> ingredients;
@@ -37,7 +45,18 @@ public class Dish implements Serializable {
     @OneToMany(mappedBy = "favouriteDish",cascade = CascadeType.ALL)
     private Set<Favourite>favourites;
 
+    @OneToMany(mappedBy = "dishLiked",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Like> like;
 
+    @OneToMany(mappedBy = "dishCommented",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Comment> comments;
+
+    @OneToMany(mappedBy = "dish",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<RecipeStep> recipeSteps;
+
+    @ManyToOne( fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id")
+    private Client authorClient;
 
     public Dish() {
     }
@@ -74,12 +93,28 @@ public class Dish implements Serializable {
         this.description = description;
     }
 
-    public String getRecepie() {
-        return recepie;
+    public float getTimeOfCooking() {
+        return timeOfCooking;
     }
 
-    public void setRecepie(String recepie) {
-        this.recepie = recepie;
+    public void setTimeOfCooking(float timeOfCooking) {
+        this.timeOfCooking = timeOfCooking;
+    }
+
+    public Date getDateOfCreate() {
+        return dateOfCreate;
+    }
+
+    public void setDateOfCreate(Date dateOfCreate) {
+        this.dateOfCreate = dateOfCreate;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public Set<Ingredient> getIngredients() {
@@ -98,6 +133,22 @@ public class Dish implements Serializable {
         this.favourites = favourites;
     }
 
+    public Set<Like> getLike() {
+        return like;
+    }
+
+    public void setLike(Set<Like> like) {
+        this.like = like;
+    }
+
+    public Client getAuthorClient() {
+        return authorClient;
+    }
+
+    public void setAuthorClient(Client authorClient) {
+        this.authorClient = authorClient;
+    }
+
     @Override
     public String toString() {
         return "Dish{" +
@@ -105,7 +156,9 @@ public class Dish implements Serializable {
                 ", name='" + name + '\'' +
                 ", type=" + type +
                 ", description='" + description + '\'' +
-                ", recepie='" + recepie + '\'' +
+                ", timeOfCooking=" + timeOfCooking +
+                ", dateOfCreate=" + dateOfCreate +
+                ", authorClient=" + authorClient.getFirstName() + " " + authorClient.getLastName() +
                 '}';
     }
 }
