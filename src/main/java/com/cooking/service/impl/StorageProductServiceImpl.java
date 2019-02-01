@@ -1,9 +1,9 @@
 package com.cooking.service.impl;
 
-import com.cooking.dao.StorageProductsDao;
+import com.cooking.dao.StorageProductDao;
 import com.cooking.model.Product;
 import com.cooking.model.Storage;
-import com.cooking.model.StorageProducts;
+import com.cooking.model.StorageProduct;
 import com.cooking.service.StorageProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,34 +14,39 @@ import java.util.List;
 public class StorageProductServiceImpl implements StorageProductService {
 
     @Autowired
-    private final StorageProductsDao storageProductsDao;
+    private final StorageProductDao storageProductDao;
 
-    public StorageProductServiceImpl(StorageProductsDao storageProductsDao) {
-        this.storageProductsDao = storageProductsDao;
+    public StorageProductServiceImpl(StorageProductDao storageProductDao) {
+        this.storageProductDao = storageProductDao;
     }
 
     @Override
-    public List<StorageProducts> getAllStorageProducts() {
-        return storageProductsDao.getAllStorageProducts();
+    public List<StorageProduct> getAllStorageProducts() {
+        return storageProductDao.getAllStorageProducts();
     }
 
     @Override
-    public StorageProducts getStorageProducts(final Storage storage, final Product product) {
-        return storageProductsDao.getStorageProducts(storage, product);
+    public StorageProduct getStorageProductsById(int id) {
+        return storageProductDao.getStorageProductsById(id);
     }
 
     @Override
-    public void addStorageProducts(final StorageProducts storageProductsAdd) {
-        storageProductsDao.addStorageProducts(storageProductsAdd);
+    public StorageProduct getStorageProducts(final Storage storage, final Product product) {
+        return storageProductDao.getStorageProducts(storage, product);
     }
 
     @Override
-    public void updateStorageProducts(final StorageProducts storageProductsUpdate) {
-        storageProductsDao.updateStorageProducts(storageProductsUpdate);
+    public void addStorageProducts(final StorageProduct storageProductAdd) {
+        storageProductDao.addStorageProducts(storageProductAdd);
     }
 
     @Override
-    public void deleteStorageProducts(final StorageProducts storageProductsDelete) {
-        storageProductsDao.deleteStorageProducts(storageProductsDelete);
+    public void updateStorageProducts(final StorageProduct storageProductUpdate) {
+        storageProductDao.updateStorageProducts(storageProductUpdate);
+    }
+
+    @Override
+    public void deleteStorageProducts(final StorageProduct storageProductDelete) {
+        storageProductDao.deleteStorageProducts(storageProductDelete);
     }
 }

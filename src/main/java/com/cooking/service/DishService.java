@@ -1,9 +1,6 @@
 package com.cooking.service;
 
-import com.cooking.model.Client;
-import com.cooking.model.Dish;
-import com.cooking.model.Product;
-import com.cooking.model.Storage;
+import com.cooking.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,4 +16,9 @@ public interface DishService {
     List<Dish> getFavouriteDishesByClient(Client client);
     List<Dish> getDishesByStorage(Storage storage);
     List<Dish> getDishesByClient(Client client);
+    List<Dish> getDishesByTimeOfCooking(float timeOfCooking);
+    List<Dish> getDishesByLikeClient(Client client);
+    Dish getDishByComment(Comment comment);
+    List<Dish> getCommentedDishesByClient(Client client);
+    Dish getDishByRecipeStep(RecipeStep recipeStep);
 }

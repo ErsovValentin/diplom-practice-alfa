@@ -64,7 +64,7 @@ public class StorageDaoImpl implements StorageDao {
 
     public List<Storage> getStoragesByProduct(Product product) {
         return (ArrayList<Storage>)session()
-                .createQuery("select sp.storage from StorageProducts sp where sp.product = ?1", Storage.class)
+                .createQuery("select sp.storage from StorageProduct sp where sp.product = ?1", Storage.class)
                 .setParameter(1, product)
                 .list();
     }

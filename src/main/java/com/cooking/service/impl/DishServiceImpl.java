@@ -1,10 +1,7 @@
 package com.cooking.service.impl;
 
 import com.cooking.dao.DishDao;
-import com.cooking.model.Client;
-import com.cooking.model.Dish;
-import com.cooking.model.Product;
-import com.cooking.model.Storage;
+import com.cooking.model.*;
 import com.cooking.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,5 +62,30 @@ public class DishServiceImpl implements DishService {
     @Override
     public List<Dish> getDishesByClient(final Client client) {
         return dishDao.getDishesByClient(client);
+    }
+
+    @Override
+    public List<Dish> getDishesByTimeOfCooking(float timeOfCooking) {
+        return dishDao.getDishesByTimeOfCooking(timeOfCooking);
+    }
+
+    @Override
+    public List<Dish> getDishesByLikeClient(Client client) {
+        return dishDao.getDishesByLikeClient(client);
+    }
+
+    @Override
+    public Dish getDishByComment(Comment comment) {
+        return dishDao.getDishByComment(comment);
+    }
+
+    @Override
+    public List<Dish> getCommentedDishesByClient(Client client) {
+        return dishDao.getCommentedDishesByClient(client);
+    }
+
+    @Override
+    public Dish getDishByRecipeStep(RecipeStep recipeStep) {
+        return dishDao.getDishByRecipeStep(recipeStep);
     }
 }

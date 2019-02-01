@@ -1,11 +1,11 @@
-package com.cooking.dao;
+package com.cooking.service;
 
 import com.cooking.model.Dish;
 import com.cooking.model.RecipeStep;
 
 import java.util.List;
 
-public interface RecipeStepDao {
+public interface RecipeStepService {
 
     List<RecipeStep> getAllRecipeSteps();
     RecipeStep getRecipeStepById(int id);

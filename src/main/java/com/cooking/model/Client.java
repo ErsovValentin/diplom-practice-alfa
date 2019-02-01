@@ -2,6 +2,8 @@ package com.cooking.model;
 
 import com.cooking.model.addition.UserRole;
 import com.cooking.model.addition.UserSex;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -29,6 +31,7 @@ public class Client implements Serializable {
     @Temporal(value = TemporalType.DATE)
     @Column(name = "client_dob")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
     @Enumerated(EnumType.STRING)
@@ -49,19 +52,24 @@ public class Client implements Serializable {
     @Column(name = "client_role", nullable = false)
     private UserRole role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "storage_id")
     private Storage storage;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "favouriteClient",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Favourite> favourites;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Like> like;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "authorClient",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Dish> dishes;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Comment> comments;
 

@@ -1,11 +1,11 @@
-package com.cooking.dao;
+package com.cooking.service;
 
 import com.cooking.model.Dish;
 import com.cooking.model.Like;
 
 import java.util.List;
 
-public interface LikeDao {
+public interface LikeService {
 
     List<Like> getAllLikes();
     Like getLikeById(int id);

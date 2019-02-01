@@ -17,5 +17,4 @@ public interface ProductService {
     List<Product> getProductsByDish(Dish dish);
     List<Product> getProductsByStorage(Storage storage);
     List<Product> getProductsByClient(Client client);
-
 }

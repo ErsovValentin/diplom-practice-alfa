@@ -16,7 +16,7 @@ public class Main {
 
         final ClientDao clientDao = context.getBean(ClientDao.class);
         final StorageDao storageDao = context.getBean(StorageDao.class);
-        final StorageProductsDao storageProductsDao = context.getBean(StorageProductsDao.class);
+        final StorageProductDao storageProductDao = context.getBean(StorageProductDao.class);
         final ProductDao productDao = context.getBean(ProductDao.class);
 
 
@@ -179,25 +179,25 @@ public class Main {
         System.out.println();
         System.out.println("*********************************** STORAGE PRODUCT ***********************");
 
-        StorageProducts storageProducts = new StorageProducts();
-        storageProducts.setStorage(storageDao.getStorageById(1));
-        storageProducts.setProduct(productDao.getProductById(1));
-        storageProducts.setActivityOfProduct(StorageActivity.ACTIVE);
-        storageProducts.setQuantityOfProduct(15.5f);
+        StorageProduct storageProduct = new StorageProduct();
+        storageProduct.setStorage(storageDao.getStorageById(1));
+        storageProduct.setProduct(productDao.getProductById(1));
+        storageProduct.setActivityOfProduct(StorageActivity.ACTIVE);
+        storageProduct.setQuantityOfProduct(15.5f);
 
-        storageProductsDao.addStorageProducts(storageProducts);
+        storageProductDao.addStorageProducts(storageProduct);
 
-//        StorageProducts storageProductsUpdate = storageProductsDao.getStorageProducts(storageDao.getStorageById(1), productDao.getProductById(1));
+//        StorageProduct storageProductsUpdate = storageProductDao.getStorageProducts(storageDao.getStorageById(1), productDao.getProductById(1));
 //        storageProductsUpdate.setActivityOfProduct(StorageActivity.INACTIVE);
-//        storageProductsDao.updateStorageProducts(storageProductsUpdate);
+//        storageProductDao.updateStorageProducts(storageProductsUpdate);
 
-//        StorageProducts storageProductsDelete = new StorageProducts();
+//        StorageProduct storageProductsDelete = new StorageProduct();
 //        storageProductsDelete.setStorage(storageDao.getStorageById(2));
 //        storageProductsDelete.setProduct(productDao.getProductById(1));
-//        storageProductsDao.addStorageProducts(storageProductsDelete);
-//        storageProductsDao.deleteStorageProducts(storageProductsDelete);
+//        storageProductDao.addStorageProducts(storageProductsDelete);
+//        storageProductDao.deleteStorageProducts(storageProductsDelete);
 
-        System.out.println(storageProductsDao.getAllStorageProducts());
+        System.out.println(storageProductDao.getAllStorageProducts());
 
         System.out.println();
         System.out.println();

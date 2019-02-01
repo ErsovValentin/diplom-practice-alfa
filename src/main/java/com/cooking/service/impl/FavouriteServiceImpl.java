@@ -37,8 +37,8 @@ public class FavouriteServiceImpl implements FavouriteService {
     }
 
     @Override
-    public void updateFavoutite(final Favourite favouriteUpdate) {
-        favouriteDao.updateFavoutite(favouriteUpdate);
+    public void updateFavourite(final Favourite favouriteUpdate) {
+        favouriteDao.updateFavourite(favouriteUpdate);
     }
 
     @Override

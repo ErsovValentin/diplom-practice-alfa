@@ -64,14 +64,14 @@ public class ProductDaoImpl implements ProductDao {
 
     public List<Product> getProductsByStorage(Storage storage) {
         return (ArrayList<Product>) session()
-                .createQuery("select sp.product from StorageProducts as sp where sp.storage = ?1 ",Product.class)
+                .createQuery("select sp.product from StorageProduct as sp where sp.storage = ?1 ",Product.class)
                 .setParameter(1, storage)
                 .list();
     }
 
     public List<Product> getProductsByClient(Client client) {
         return (ArrayList<Product>) session()
-                .createQuery("select sp.product from StorageProducts as sp inner join sp.storage as s where ?1 in elements(s.clients) ",Product.class)
+                .createQuery("select sp.product from StorageProduct as sp inner join sp.storage as s where ?1 in elements(s.clients) ",Product.class)
                 .setParameter(1, client)
                 .list();
     }

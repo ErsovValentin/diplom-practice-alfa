@@ -1,6 +1,8 @@
 package com.cooking.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -16,9 +18,11 @@ public class Storage implements Serializable {
     @Column(name = "storage_name")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "storage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<StorageProducts> storageProducts;
+    private Set<StorageProduct> storageProducts;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "storage", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Client> clients;
 
@@ -41,11 +45,11 @@ public class Storage implements Serializable {
         this.name = name;
     }
 
-    public Set<StorageProducts> getStorageProducts() {
+    public Set<StorageProduct> getStorageProducts() {
         return storageProducts;
     }
 
-    public void setStorageProducts(Set<StorageProducts> storageProducts) {
+    public void setStorageProducts(Set<StorageProduct> storageProducts) {
         this.storageProducts = storageProducts;
     }
 

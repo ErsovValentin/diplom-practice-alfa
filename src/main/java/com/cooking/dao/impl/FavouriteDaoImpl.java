@@ -46,7 +46,7 @@ public class FavouriteDaoImpl implements FavouriteDao {
         session().save(favouriteAdd);
     }
 
-    public void updateFavoutite(Favourite favouriteUpdate) {
+    public void updateFavourite(Favourite favouriteUpdate) {
         session().merge(favouriteUpdate);
     }
 

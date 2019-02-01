@@ -1,6 +1,8 @@
 package com.cooking.model;
 
 import com.cooking.model.addition.DishType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -33,24 +35,30 @@ public class Dish implements Serializable {
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "dish_date_create", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateOfCreate;
 
     @Lob
     @Column(name = "dish_image")
     private byte[] image;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "ingredientDish",cascade = CascadeType.ALL)
     private Set<Ingredient> ingredients;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "favouriteDish",cascade = CascadeType.ALL)
     private Set<Favourite>favourites;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "dishLiked",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Like> like;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "dishCommented",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "dish",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<RecipeStep> recipeSteps;
 

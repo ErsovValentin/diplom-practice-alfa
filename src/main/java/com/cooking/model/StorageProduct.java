@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "storage_products",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"storage_id", "product_id"})})
-public class StorageProducts implements Serializable {
+public class StorageProduct implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,7 +72,7 @@ public class StorageProducts implements Serializable {
 
     @Override
     public String toString() {
-        return "StorageProducts{" +
+        return "StorageProduct{" +
                 "storage=" + storage.getName() +
                 ", product=" + product.getName() +
                 ", quantityOfProduct=" + quantityOfProduct +

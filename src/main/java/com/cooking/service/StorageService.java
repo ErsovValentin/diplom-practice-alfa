@@ -16,5 +16,4 @@ public interface StorageService {
     void deleteStorage(Storage storageDelete);
     Storage getStorageByClient(Client client);
     List<Storage> getStoragesByProduct(Product product);
-
 }

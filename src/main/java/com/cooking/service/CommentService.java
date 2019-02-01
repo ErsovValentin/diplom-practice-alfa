@@ -1,4 +1,4 @@
-package com.cooking.dao;
+package com.cooking.service;
 
 import com.cooking.model.Client;
 import com.cooking.model.Comment;
@@ -6,7 +6,7 @@ import com.cooking.model.Dish;
 
 import java.util.List;
 
-public interface CommentDao {
+public interface CommentService {
 
     List<Comment> getAllComments();
     Comment getCommentById(int id);

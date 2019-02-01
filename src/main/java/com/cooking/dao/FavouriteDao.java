@@ -12,7 +12,7 @@ public interface FavouriteDao {
     ArrayList<Favourite> getAllFavourites();
     Favourite getFavouriteById(int id);
     void addFavourite(Favourite favouriteAdd);
-    void updateFavoutite(Favourite favouriteUpdate);
+    void updateFavourite(Favourite favouriteUpdate);
     void deleteFavourite(Favourite favouriteDelete);
     List<Favourite> getFavouritesByClient(Client client);
     List<Favourite> getFavouritesByDish(Dish dish);

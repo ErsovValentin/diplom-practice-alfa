@@ -21,5 +21,4 @@ public interface DishDao {
     Dish getDishByComment(Comment comment);
     List<Dish> getCommentedDishesByClient(Client client);
     Dish getDishByRecipeStep(RecipeStep recipeStep);
-
 }

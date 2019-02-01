@@ -3,6 +3,7 @@ package com.cooking.model;
 
 import com.cooking.model.addition.ProductMeasure;
 import com.cooking.model.addition.ProductType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,11 +31,13 @@ public class Product implements Serializable {
     @Column(name = "product_measure", nullable = false)
     private ProductMeasure measure;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "ingredientProduct",cascade = CascadeType.ALL)
     private Set<Ingredient> ingredients;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    private Set<StorageProducts> storageProducts;
+    private Set<StorageProduct> storageProducts;
 
     public Product() {
     }
@@ -87,11 +90,11 @@ public class Product implements Serializable {
         this.ingredients = ingredients;
     }
 
-    public Set<StorageProducts> getStorageProducts() {
+    public Set<StorageProduct> getStorageProducts() {
         return storageProducts;
     }
 
-    public void setStorageProducts(Set<StorageProducts> storageProducts) {
+    public void setStorageProducts(Set<StorageProduct> storageProducts) {
         this.storageProducts = storageProducts;
     }
 
